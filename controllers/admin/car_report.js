@@ -197,13 +197,17 @@ router.post('/add/category', async (req, res) => {
     var schema = {
         'category_name': {
             notEmpty: true,
-            errorMessage: "Please enter coupon code",
+            errorMessage: "Please enter category name for english",
+        },
+        'category_name_arabic': {
+            notEmpty: true,
+            errorMessage: "Please enter category name for arabic",
         }
     };
     req.checkBody(schema);
     var errors = req.validationErrors();
     if (!errors) {
-        const categoryResp = await ReportHelper.addCategory({ "category_name": req.body.category_name });
+        const categoryResp = await ReportHelper.addCategory({ "category_name": req.body.category_name,"category_name_arabic": req.body.category_name_arabic });
         if (categoryResp.status === 'success') {
             res.status(config.OK_STATUS).json(categoryResp);
         } else {
