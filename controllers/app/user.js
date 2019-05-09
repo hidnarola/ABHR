@@ -10,6 +10,7 @@ var auth = require('./../../middlewares/auth');
 var path = require('path');
 var User = require('./../../models/users');
 var Notifications = require('./../../models/notifications');
+var Language = require('./../../models/languages');
 var CarBooking = require('./../../models/car_booking');
 var async = require("async");
 const moment = require('moment');
