@@ -1614,7 +1614,7 @@ router.get('/language_details', async (req, res) => {
             res.status(config.OK_STATUS).json({
                 status: "success",
                 message: "language Details data Found",
-                data: copy
+                langdata: copy
                      
             });
         }
