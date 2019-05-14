@@ -99,12 +99,16 @@ router.post('/details', async (req, res) => {
         'car_id': {
             notEmpty: true,
             errorMessage: "Please enter car id"
+        },
+        'lan_id': {
+            notEmpty: true,
+            errorMessage: "Please enter lan id(6,7)"
         }
     };
     req.checkBody(schema);
     var errors = req.validationErrors();
     if (!errors) {
-        const carResp = await carHelper.getcarDetailbyId(new ObjectId(req.body.car_id));
+        const carResp = await carHelper.getcarDetailbyId(new ObjectId(req.body.car_id),req.body.lan_id);
         if (carResp.status === 'success') {
             res.status(config.OK_STATUS).json(carResp);
         }
