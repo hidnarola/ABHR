@@ -178,7 +178,12 @@ carHelper.getAvailableCar = async function (fromDate, days, start = 0, length = 
 };
 
 
-carHelper.getcarDetailbyId = async (car_id) => {
+carHelper.getcarDetailbyId = async (car_id,lan_id) => {
+    if(lan_id == 6){
+        var terms = "$termandconditionDetails.terms_and_conditions";
+    }else{
+        var terms = "$termandconditionDetails.terms_and_conditions_arabic";
+    }
     var defaultQuery = [
         {
             $lookup: {
@@ -244,7 +249,7 @@ carHelper.getcarDetailbyId = async (car_id) => {
                 car_rental_company_id: 1,
                 car_rental_company_name: "$carCompanyDetails.name",
                 car_rental_company_country: "$carCompanyDetails.company_address.country",
-                terms_and_conditions: "$termandconditionDetails.terms_and_conditions",
+                terms_and_conditions: terms,
                 car_brand: "$brandDetails.brand_name",
                 car_model: "$modelDetails.model_name",
                 car_model_number: "$modelDetails.model_number",
