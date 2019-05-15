@@ -78,6 +78,10 @@ router.post('/notifications-v2', async (req, res) => {
         'user_id': {
             notEmpty: true,
             errorMessage: "Please enter user id"
+        },
+        'lan_id': {
+            notEmpty: true,
+            errorMessage: "Please enter lan id"
         }
     };
     req.checkBody(schema);
@@ -118,6 +122,7 @@ router.post('/notifications-v2', async (req, res) => {
                         "deviceToken" : 1,
                         "deviceType" : 1,
                         "notificationText" : 1,
+                        "notificationTextArabic" : 1,
                         "booking_number" : 1,
                         "createdAt" : 1,
                         "modifiedAt" : 1,
