@@ -165,7 +165,7 @@ commonHelper.aboutus = async function (help_type) {
 
 
 // send notification to user when car assign-v2 by agent for delivery or retun process
-commonHelper.sendNoti = async function (userId,booking_number,msg){
+commonHelper.sendNoti = async function (userId,booking_number,msg,msgar){
     // when car assign by agent for delivery or return send notification to user
     /** push notification process to user app start */
     var userDeviceToken = await Users.find({ '_id': new ObjectId(userId) }, { _id: 1, deviceToken: 1, phone_number: 1, country_code: 1, deviceType: 1, email: 1, first_name: 1 }).lean().exec();
@@ -189,6 +189,7 @@ commonHelper.sendNoti = async function (userId,booking_number,msg){
                 "deviceToken": deviceToken,
                 "deviceType": 'ios',
                 "notificationText": msg,
+                "notificationTextArabic": msgar,
                 "notificationType": 1,
                 "booking_number": booking_number
             }
@@ -208,6 +209,7 @@ commonHelper.sendNoti = async function (userId,booking_number,msg){
                  "deviceToken": deviceToken,
                  "deviceType": 'android',
                  "notificationText": msg,
+                 "notificationTextArabic": msgar,
                  "notificationType": 1,
                  "booking_number": booking_number
                 }
