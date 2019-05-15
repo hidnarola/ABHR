@@ -102,7 +102,7 @@ router.post('/details', async (req, res) => {
         },
         'lan_id': {
             notEmpty: true,
-            errorMessage: "Please enter lan id(6,7)"
+            errorMessage: "Please enter lan_id"
         }
     };
     req.checkBody(schema);
@@ -1299,7 +1299,7 @@ if (carData && carData.length > 0) {
         var notificationType = 1; // means notification for booking 
         console.log('Dev Token=>', deviceToken);
         var msg = "Your car has been booked successfully";
-        // var msg = "Congratulations your car rental booking has been confirmed, our agent is on the way to pick your car up for you";
+        var msgar = "تم حجز سيارتك بنجاح";
         if (userDeviceToken[0].deviceType === 'ios') {
             var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, car_booking_number, notificationType, msg);
             /* save notification to db start */
@@ -1309,6 +1309,7 @@ if (carData && carData.length > 0) {
                 "deviceToken": deviceToken,
                 "deviceType": 'ios',
                 "notificationText": msg,
+                "notificationTextArabic": msgar,
                 "notificationType": 1,
                 "booking_number": car_booking_number
             }
@@ -1325,6 +1326,7 @@ if (carData && carData.length > 0) {
                 "deviceToken": deviceToken,
                 "deviceType": 'android',
                 "notificationText": msg,
+                "notificationTextArabic": msgar,
                 "notificationType": 1,
                 "booking_number": car_booking_number
             }
@@ -1345,6 +1347,7 @@ if (carData && carData.length > 0) {
 
         var agent_data_array = [];
         var msg = "New car has been book assign to you to deliver it";
+        var msgar = "تم تخصيص سيارة جديدة لك لتسليمها";
         var flag = "deliver";
         agentList.map((agent, index) => {
             if (agent.deviceToken !== undefined && agent.deviceToken !== null) {
@@ -1357,6 +1360,7 @@ if (carData && carData.length > 0) {
                         "deviceToken": agent.deviceToken,
                         "deviceType": 'android',
                         "notificationText": msg,
+                        "notificationTextArabic": msgar,
                         "notificationType": 1,
                         "booking_number": car_booking_number
                     })
@@ -1369,6 +1373,7 @@ if (carData && carData.length > 0) {
                     "deviceToken": null,
                     "deviceType": 'android',
                     "notificationText": msg,
+                    "notificationTextArabic": msgar,
                     "notificationType": 1,
                     "booking_number": car_booking_number
                 })
@@ -1389,7 +1394,7 @@ if (carData && carData.length > 0) {
         // user
         var options_user = {
             to: userDeviceToken[0].email,
-            // to: "dipeshmali44@gmail.com",
+            // to: "anks.eagle@gmail.com" ,
             subject: 'ABHR - New car has been booked'
         }
         // company admin
@@ -1636,6 +1641,7 @@ router.post('/change-booking-v2', async (req, res) => {
             console.log('Dev Token=>', deviceToken);
             // var msg = "Your booking is changed successfully";
             var msg = "Your booking has been updated successfully";
+            var msgar = "تم تحديث حجزك بنجاح";
             if (userDeviceToken[0].deviceType === 'ios') {
                 var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, req.body.booking_number, notificationType, msg);
 
@@ -1646,6 +1652,7 @@ router.post('/change-booking-v2', async (req, res) => {
                     "deviceToken": deviceToken,
                     "deviceType": 'ios',
                     "notificationText": msg,
+                    "notificationTextArabic": msgar,
                     "notificationType": 1,
                     "booking_number": req.body.booking_number
                 }
@@ -1662,6 +1669,7 @@ router.post('/change-booking-v2', async (req, res) => {
                     "deviceToken": deviceToken,
                     "deviceType": 'android',
                     "notificationText": msg,
+                    "notificationTextArabic": msgar,
                     "notificationType": 1,
                     "booking_number": req.body.booking_number
                 }
@@ -1677,6 +1685,7 @@ router.post('/change-booking-v2', async (req, res) => {
                 var deviceToken = null;
                 // var msg = "Car booking has been changed"
                 var msg = userDeviceToken[0].first_name + "'\s" + " booking has been updated";
+                var msgar = userDeviceToken[0].first_name + "'\s" + " تم تحديث الحجز";
                 var flag = "other";
                 // Push notification //
                 if (agentData[0].deviceToken !== undefined && agentData[0].deviceToken !== null) {
@@ -1693,6 +1702,7 @@ router.post('/change-booking-v2', async (req, res) => {
                             "deviceToken": deviceToken,
                             "deviceType": 'android',
                             "notificationText": msg,
+                            "notificationTextArabic": msgar,
                             "notificationType": 1,
                             "booking_number": req.body.booking_number
                         }
@@ -1749,7 +1759,6 @@ router.post('/change-booking-v2', async (req, res) => {
             // user
             var options_user = {
                 to: userDeviceToken[0].email,
-                // to: 'dipeshmali44@gmail.com',
                 subject: 'ABHR - Car booking has been changed'
             }
             // company admin
@@ -1904,6 +1913,7 @@ router.post('/cancel-booking-v2', async (req, res) => {
 
             var notificationType = 1; // means notification for booking 
             var msg = "Your booking has been cancelled";
+            var msgar = "تم إلغاء الحجز الخاص بك";
             console.log('Dev Token=>', deviceToken);
             if (userDeviceToken[0].deviceType === 'ios') {
                 var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, req.body.booking_number, notificationType, msg);
@@ -1915,6 +1925,7 @@ router.post('/cancel-booking-v2', async (req, res) => {
                     "deviceToken": deviceToken,
                     "deviceType": 'ios',
                     "notificationText": msg,
+                    "notificationTextArabic": msgar,
                     "notificationType": 1,
                     "booking_number": req.body.booking_number
                 }
@@ -1931,6 +1942,7 @@ router.post('/cancel-booking-v2', async (req, res) => {
                     "deviceToken": deviceToken,
                     "deviceType": 'android',
                     "notificationText": msg,
+                    "notificationTextArabic": msgar,
                     "notificationType": 1,
                     "booking_number": req.body.booking_number
                 }
@@ -1943,6 +1955,7 @@ router.post('/cancel-booking-v2', async (req, res) => {
                 var agentData = await Users.find({ '_id': new ObjectId(user_id.car_handover_by_agent_id) }, { _id: 1, deviceToken: 1, phone_number: 1, deviceType: 1, email: 1, phone_number: 1 }).lean().exec();
                 var deviceToken = null;
                 var msg = "Oopss!! " + userDeviceToken[0].first_name + "'\s" + " booking has been cancelled";
+                var msgar = "Oopss !! " + userDeviceToken[0].first_name + "'\s" + " تم إلغاء الحجز";
                 var flag = "other";
                 // Push notification //
                 if (agentData[0].deviceToken !== undefined && agentData[0].deviceToken !== null) {
@@ -1960,6 +1973,7 @@ router.post('/cancel-booking-v2', async (req, res) => {
                             "deviceToken": deviceToken,
                             "deviceType": 'android',
                             "notificationText": msg,
+                            "notificationTextArabic": msgar,
                             "notificationType": 1,
                             "booking_number": req.body.booking_number
                         }
@@ -4184,6 +4198,7 @@ router.post('/return-request', async (req, res) => {
             var notificationFor = "return-process";
             // var msg = "Assign car to you for return process";
             var msg = userDeviceToken[0].first_name + " has issued a return request";
+            var msgar = userDeviceToken[0].first_name + " أصدر طلب إرجاع";
             var flag = "return";
 
             agentList.map((agent, index) => {
@@ -4197,6 +4212,7 @@ router.post('/return-request', async (req, res) => {
                             "deviceToken": agent.deviceToken,
                             "deviceType": 'android',
                             "notificationText": msg,
+                            "notificationTextArabic": msgar,
                             "notificationType": 1,
                             "booking_number": booking_number
                         })
@@ -4210,6 +4226,7 @@ router.post('/return-request', async (req, res) => {
                         "deviceToken": null,
                         "deviceType": 'android',
                         "notificationText": msg,
+                        "notificationTextArabic": msgar,
                         "notificationType": 1,
                         "booking_number": booking_number
                     })
@@ -6526,6 +6543,7 @@ router.post('/extend-booking', async (req, res) => {
                 var notificationType = 1; // means notification for booking 
                 console.log('Dev Token=>', deviceToken);
                 var msg = "Your booking has been extended successfully";
+                var msgar = "تم تمديد الحجز بنجاح";
                 if (userDeviceToken[0].deviceType === 'ios') {
                     var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, req.body.booking_number, notificationType, msg);
 
@@ -6536,6 +6554,7 @@ router.post('/extend-booking', async (req, res) => {
                         "deviceToken": deviceToken,
                         "deviceType": 'ios',
                         "notificationText": msg,
+                        "notificationTextArabic": msgar,
                         "notificationType": 1,
                         "booking_number": req.body.booking_number
                     }
@@ -6552,6 +6571,7 @@ router.post('/extend-booking', async (req, res) => {
                         "deviceToken": deviceToken,
                         "deviceType": 'android',
                         "notificationText": msg,
+                        "notificationTextArabic": msgar,
                         "notificationType": 1,
                         "booking_number": req.body.booking_number
                     }
@@ -6566,6 +6586,7 @@ router.post('/extend-booking', async (req, res) => {
                     var agentData = await Users.find({ '_id': new ObjectId(user_id.car_handover_by_agent_id) }, { _id: 1, deviceToken: 1, phone_number: 1, deviceType: 1, email: 1, phone_number: 1 }).lean().exec();
                     var deviceToken = null;
                     var msg = userDeviceToken[0].first_name + "'\s" + " booking has been extended"
+                    var msgar = userDeviceToken[0].first_name + "'\s" + " تم تمديد الحجز"
                     var flag = "other";
                     // Push notification //
                     if (agentData[0].deviceToken !== undefined && agentData[0].deviceToken !== null) {
@@ -6582,6 +6603,7 @@ router.post('/extend-booking', async (req, res) => {
                                 "deviceToken": deviceToken,
                                 "deviceType": 'android',
                                 "notificationText": msg,
+                                "notificationTextArabic": msgar,
                                 "notificationType": 1,
                                 "booking_number": req.body.booking_number
                             }
