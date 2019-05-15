@@ -16,6 +16,9 @@ var NotificationSchema = new Schema({
     notificationText: {
         type: String
     },
+    notificationTextArabic: {
+        type: String
+    },
     notificationType: {
         type: Number,
         default : 1
