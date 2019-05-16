@@ -3421,7 +3421,7 @@ router.post('/report', async (req, res) => {
 
 // report status
 router.post('/report-status', async (req, res) => {
-
+  var lan_id = req.body.lan_id;
     var schema = {
         'user_id': {
             notEmpty: true,
@@ -3449,14 +3449,31 @@ router.post('/report-status', async (req, res) => {
 
         if (report && report.length > 0) {
             if (report[0].status === 'pending') {
-                res.status(config.BAD_REQUEST).json({ status: "failed", message: "You already reported this issues, we will get back to you soon!" });
+                
+                 if(lan_id==7){
+                    var mg='لقد أبلغت عن هذه المشكلة بالفعل ، وسنعود إليك قريبًا!';
+                }else{
+                    var mg='You already reported this issues, we will get back to you soon!';                   
+                }
+                res.status(config.BAD_REQUEST).json({ status: "failed", message: mg });
             }
             else if (report[0].status === 'resolved') {
-                res.status(config.BAD_REQUEST).json({ status: "failed", message: "Reported issues resolved, please check your email" });
+                
+                if(lan_id==7){
+                    var mg='تم حل المشكلات المبلغ عنها ، يرجى التحقق من بريدك الإلكتروني';
+                }else{
+                    var mg='Reported issues resolved, please check your email';                   
+                }
+                res.status(config.BAD_REQUEST).json({ status: "failed", message: mg });
             }
         }
         else {
-            res.status(config.OK_STATUS).json({ status: "success", "message": "You have not reported any car." })
+             if(lan_id==7){
+                var mg='لم تبلغ عن أي سيارة.';
+            }else{
+                var mg='You have not reported any car.';                   
+            }
+            res.status(config.OK_STATUS).json({ status: "success", "message": mg })
         }
     }
     else {
