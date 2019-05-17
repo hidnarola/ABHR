@@ -2348,6 +2348,7 @@ router.post('/check-delivery-radius-v2', async (req, res) => {
             company_id: req.body.car_rental_company_id,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
+            lan_id: req.body.lan_id,
             city: (req.body.city).toLowerCase()
         }
         // let radiusResp = await carHelper.checkRadius(data); // location wise
