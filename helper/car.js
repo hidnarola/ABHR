@@ -2121,13 +2121,25 @@ carHelper.checkRadius_v2 = async function (data) {
         ]
         );
         if (radius && radius.length > 0) {
-            return { status: 'success', message: "Service is available to your location" }
+             if(data.lan_id ==7){
+                return { status: 'success', message: "الخدمة متاحة لموقعك" }                
+            }else{
+                return { status: 'success', message: "Service is available to your location" }
+            }
         }
         else {
-            return { status: 'failed', message: "Service is not available to your location" }
+              if(data.lan_id ==7){
+                    return { status: 'failed', message: "الخدمة غير متوفرة لموقعك" }                
+                }else{
+                    return { status: 'failed', message: "Service is not available to your location" }
+                }
         }
     } catch (err) {
-        return { status: 'failed', message: "Error occured while mapping radius", err }
+         if(data.lan_id == 7){
+            return { status: 'failed', message: "حدث خطأ أثناء تعيين نصف القطر" }                
+        }else{
+            return { status: 'failed', message: "Error occured while mapping radius", err }
+        }
     }
 }
 
