@@ -671,7 +671,8 @@ router.post('/add-review', async (req, res) => {
             'username': req.body.username,
             'review_text': req.body.review_text ? req.body.review_text : ''
         }
-        const carReviewResp = await carHelper.addReview(review_data);
+        var lan_id = req.body.lan_id;
+        const carReviewResp = await carHelper.addReview_new(review_data,lan_id);
         if (carReviewResp.status === 'success') {
             res.status(config.OK_STATUS).json(carReviewResp);
         }
@@ -683,6 +684,7 @@ router.post('/add-review', async (req, res) => {
         res.status(config.BAD_REQUEST).json({
             status: 'failed',
             message: "Validation Error",
+            
         });
     }
 });

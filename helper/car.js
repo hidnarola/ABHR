@@ -598,6 +598,45 @@ carHelper.addReview = async function (review_data) {
     }
 };
 
+// Add car review
+carHelper.addReview_new = async function (review_data,lan_id) {
+    let car_review = new CarReview(review_data);
+    try {
+        let dt = await CarReview.find({
+            $and: [
+                { car_id: new ObjectId(review_data.car_id) },
+                { user_id: new ObjectId(review_data.user_id) }
+            ]
+        });
+
+        if (dt && dt.length > 0) {
+
+            if(lan_id == 7){
+                return { status: 'failed', message: "لديك كل استعداد معين نظرا لهذه السيارة" }
+            }else{
+                return { status: 'failed', message: "You have all ready given review to this car" }
+            }
+           
+        }
+        else {
+            let data = await car_review.save();
+            if(lan_id == 7){
+                return { status: 'success', message: "تمت إضافة مراجعة السيارة", data: data }
+            }else{
+                return { status: 'success', message: "Car review has been added", data: data }
+            }
+           
+        }
+    } catch (err) {
+        if(lan_id == 7){
+            return { status: 'failed', message: "حدث خطأ أثناء إضافة مراجعة السيارة" };
+        }else{
+            return { status: 'failed', message: "Error occured while adding car review" };
+        }
+       
+    }
+};
+
 // get car reviews
 carHelper.getCarReviews = async (datta) => {
     try {
