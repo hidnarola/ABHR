@@ -1209,7 +1209,9 @@ router.post('/addresses/delete-v2', async (req, res) => {
 
         var user_id = req.body.user_id;
         var address_ids = req.body.addresses_id;
-        const addressResp = await userHelper.deleteAddress(user_id, address_ids);
+        var lan_id = req.body.lan_id;
+         const addressResp = await userHelper.deleteAddress_new(user_id, address_ids,lan_id);
+        //const addressResp = await userHelper.deleteAddress(user_id, address_ids);
 
         if (addressResp.status === 'success') {
             res.status(config.OK_STATUS).json(addressResp);
