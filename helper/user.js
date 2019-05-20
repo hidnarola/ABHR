@@ -193,6 +193,38 @@ userHelper.deleteAddress = async function (user_id, address_ids) {
         return { status: 'failed', message: "Error occured while deleting address" };
     }
 };
+// delete single or multiple Addresses of user
+userHelper.deleteAddress_new = async function (user_id, address_ids,lan_id) {
+    try {
+        var add_id = address_ids.map((b) => { return new ObjectId(b) });
+        var data = await User.update({ _id: new ObjectId(user_id) }, { $pull: { "address" :  { _id : { $in : add_id } } } });
+        if(data && data.n > 0){
+            if(lan_id == 7){
+                return { status: 'success', message: "تم حذف العنوان" }
+            }else{
+                return { status: 'success', message: "Address has been deleted" }
+            }
+            
+        }
+        else{
+
+            if(lan_id == 7){
+                return { status: 'failed', message: "العنوان غير محذوف" }
+            }else{
+                return { status: 'failed', message: "Address Not deleted" }
+            }
+            
+        }
+    } catch (err) {
+
+        if(lan_id == 7){
+            return { status: 'failed', message: "حدث خطأ أثناء حذف العنوان" };
+        }else{
+            return { status: 'failed', message: "Error occured while deleting address" };
+        }
+        
+    }
+};
 
 
 // update user address V1
