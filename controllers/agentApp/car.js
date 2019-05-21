@@ -2604,7 +2604,7 @@ router.post('/delivering_v3', async (req, res) => {
         if(booking.status === 'success'){
            var bookingID=booking.id;
         }else{
-            var bookingID=req.body.booking_number;
+            var bookingID='';
         }
 
         if (carHandOverResp.status === 'success') {
@@ -2643,7 +2643,7 @@ router.post('/delivering_v3', async (req, res) => {
 
 
                     } else if (userData[0].deviceType === 'android') {
-                        var sendNotification = await pushNotificationHelper.sendToAndroidUser(deviceToken, parseInt(bookingID), msg,status);
+                        var sendNotification = await pushNotificationHelper.sendToAndroidUser(deviceToken, parseInt(req.body.booking_number), msg,status,bookingID);
 
                         /* save notification to db start */
                         // if (deviceToken !== null) {
@@ -2654,7 +2654,7 @@ router.post('/delivering_v3', async (req, res) => {
                                 "notificationText": msg,
                                 "notificationTextArabic": msgar,
                                 "notificationType": 1,
-                                "booking_number": parseInt(req.body.booking_number)
+                                "booking_number":bookingID //parseInt(req.body.booking_number)
                             }
                             var saveNotiResp = await pushNotificationHelper.save_notification_to_db(data);
                         // }

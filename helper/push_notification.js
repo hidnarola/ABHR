@@ -92,7 +92,7 @@ push_notification_helper.sendToAndroid = async (device_token, car_booking_number
 }
 
 // send notification to user when new car has been booked 
-push_notification_helper.sendToAndroidUser = (device_token, car_booking_number, message_text, status = '') => {
+push_notification_helper.sendToAndroidUser = (device_token, car_booking_number, message_text, status = '',bookingID='') => {
     console.log('Token ARRAY =>>>>', device_token);
 
     try {
@@ -102,6 +102,7 @@ push_notification_helper.sendToAndroidUser = (device_token, car_booking_number, 
             priority: 'high',
             data: {  //you can send only notification or only data(or include both)
                 booking_number: car_booking_number,
+                booking_id: bookingID,
                 status: status,
                 title: 'ABHR',
                 message: message_text,
