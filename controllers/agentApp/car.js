@@ -2600,9 +2600,11 @@ router.post('/delivering_v3', async (req, res) => {
         const carHandOverResp = await CarHelper.car_delivering_v2(req, hand_over_data, locationData);
         console.log('RESP=>', carHandOverResp);
         const booking = await CarHelper.get_booking_id(req.body.booking_number);
-        var bookingID='';
+
          if(booking.status === 'success'){
              bookingID=booking.id;
+         }else{
+             var bookingID=req.body.booking_number;
          }
 
         if (carHandOverResp.status === 'success') {
