@@ -96,19 +96,38 @@ push_notification_helper.sendToAndroidUser = (device_token, car_booking_number, 
     console.log('Token ARRAY =>>>>', device_token);
 
     try {
-        var message = {
-            to: device_token,  // single device
-            // registration_ids: device_token,// one or more device token,
-            priority: 'high',
-            data: {  //you can send only notification or only data(or include both)
-               // booking_number: car_booking_number,
-                booking_number: bookingID,
-                status: status,
-                title: 'ABHR',
-                message: message_text,
-                body: message_text
-            }
-        };
+        if(status == 1){
+            var message = {
+                to: device_token,  // single device
+                // registration_ids: device_token,// one or more device token,
+                priority: 'high',
+                data: {  //you can send only notification or only data(or include both)
+                    // booking_number: car_booking_number,
+                    booking_number: bookingID,
+                    status: 1,
+                    title: 'ABHR',
+                    message: message_text,
+                    body: message_text
+                }
+            };
+        }else{
+
+            var message = {
+                to: device_token,  // single device
+                // registration_ids: device_token,// one or more device token,
+                priority: 'high',
+                data: {  //you can send only notification or only data(or include both)
+                    booking_number: car_booking_number,
+                   // booking_number: bookingID,
+                    status: '',
+                    title: 'ABHR',
+                    message: message_text,
+                    body: message_text
+                }
+            };
+
+        }
+
 
         const promise = new Promise(((resolve) => {
             fcm_user.send(message, function (err, response) {
