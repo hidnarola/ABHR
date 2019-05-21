@@ -2601,11 +2601,11 @@ router.post('/delivering_v3', async (req, res) => {
         console.log('RESP=>', carHandOverResp);
         const booking = await CarHelper.get_booking_id(req.body.booking_number);
 
-         if(booking.status === 'success'){
-             bookingID=booking.id;
-         }else{
-             var bookingID=req.body.booking_number;
-         }
+        if(booking.status === 'success'){
+           var bookingID=booking.id;
+        }else{
+            var bookingID=req.body.booking_number;
+        }
 
         if (carHandOverResp.status === 'success') {
 
@@ -2802,6 +2802,18 @@ router.post('/handover-v2', async (req, res) => {
         });
     }
 });
+
+
+/*router.post('/test', async (req, res) => {
+    console.log(req.body.booking_number);
+    const booking = await CarHelper.get_booking_id(req.body.booking_number);
+if(booking.status === 'success'){
+    bookingID=booking.id;
+}else{
+    var bookingID=req.body.booking_number;
+}
+
+});*/
 
 
 module.exports = router;

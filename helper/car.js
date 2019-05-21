@@ -3006,8 +3006,9 @@ carHelper.get_email = async function (id) {
 carHelper.get_booking_id = async function (booking_number) {
     try {
         // var data = await User.updateOne({ _id : new ObjectId(user_id)}, { $set : { password : bcrypt.hashSync(password, SALT_WORK_FACTOR)  } } );
-        var data = await CarBooking.findOne({ booking_number:booking_number, isDeleted: false });
-        if (data && data.length > 0) {
+        var data = await CarBooking.findOne({ booking_number: { $eq: booking_number } ,isDeleted : false });
+
+        if (data) {
             return { status: 'success', id: data._id }
         }
         else {
