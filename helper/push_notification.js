@@ -43,6 +43,7 @@ push_notification_helper.sendToAndroid = async (device_token, car_booking_number
                     title: 'ABHR Agent',
                     message: message_text,
                     body: message_text,
+                    status:1,
                     flag : flag
                 }
             };
