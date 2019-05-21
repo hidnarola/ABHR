@@ -2599,7 +2599,11 @@ router.post('/delivering_v3', async (req, res) => {
 
         const carHandOverResp = await CarHelper.car_delivering_v2(req, hand_over_data, locationData);
         console.log('RESP=>', carHandOverResp);
-
+        const booking = await CarHelper.get_booking_id(req.body.booking_number);
+        var bookingID='';
+         if(booking.status === 'success'){
+             bookingID=booking.id;
+         }
 
         if (carHandOverResp.status === 'success') {
 
@@ -2637,7 +2641,7 @@ router.post('/delivering_v3', async (req, res) => {
 
 
                     } else if (userData[0].deviceType === 'android') {
-                        var sendNotification = await pushNotificationHelper.sendToAndroidUser(deviceToken, parseInt(req.body.booking_number), msg,status);
+                        var sendNotification = await pushNotificationHelper.sendToAndroidUser(deviceToken, parseInt(bookingID), msg,status);
 
                         /* save notification to db start */
                         // if (deviceToken !== null) {
