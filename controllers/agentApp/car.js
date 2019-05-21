@@ -1268,6 +1268,13 @@ router.post('/returning_v3', async (req, res) => {
             // var booking_details = await CarBooking.updateOne({ 'booking_number': req.body.booking_number }, { $set: { 'trip_status': 'delivering' } });
             var booking_details = await CarBooking.updateOne({ 'booking_number': req.body.booking_number }, { $set: obj1 });
 
+            const booking = await CarHelper.get_booking_id(req.body.booking_number);
+
+            if(booking.status === 'success'){
+                var bookingID=booking.id;
+            }else{
+                var bookingID='';
+            }
             if (booking_details && booking_details.n > 0) {
                 var cond = { 'booking_number': req.body.booking_number, 'assign_for_receive': true }
                 var CarAssignData = await CarAssign.updateOne(cond, { $set: { 'trip_status': 'returning' } });
@@ -1308,7 +1315,7 @@ router.post('/returning_v3', async (req, res) => {
 
 
                 } else if (userDeviceToken[0].deviceType === 'android') {
-                    var sendNotification = await pushNotificationHelper.sendToAndroidUser(deviceToken, req.body.booking_number, msg,status);
+                    var sendNotification = await pushNotificationHelper.sendToAndroidUser(deviceToken, req.body.booking_number, msg,status,bookingID);
 
                      /* save notification to db start */
                     //  if (deviceToken !== null) {
