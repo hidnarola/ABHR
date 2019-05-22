@@ -1520,7 +1520,7 @@ carHelper.checkCarAvaibility_v2 = async function (car_id, fromDate, days) {
 
 // // check for car availbility on specific date v2
 
-carHelper.checkCarAvaibility_v3 = async function (car_id, fromDate, days) {
+carHelper.checkCarAvaibility_v3 = async function (car_id, fromDate, days,lan_id) {
     var toDate = moment(fromDate).add(days, 'days').format("YYYY-MM-DD");
 
     var fromDate = moment(fromDate).format("YYYY-MM-DD");
@@ -1696,15 +1696,30 @@ carHelper.checkCarAvaibility_v3 = async function (car_id, fromDate, days) {
                 }
 
                 if (availableArray.length > 0) {
-                    return { status: 'success', message: "Car is available on this date" }
+                    if(lan_id == 7){
+                        return { status: 'success', message: "السيارة متاحة في هذا التاريخ" }
+                    }else{
+                        return { status: 'success', message: "Car is available on this date" }
+                    }
+                   
                 } else {
-                    return { status: 'failed', message: "Car is not available on this date" }
+                    if(lan_id == 7){
+                        return { status: 'failed', message: "السيارة غير متوفرة في هذا التاريخ" }
+                    }else{
+                        return { status: 'failed', message: "Car is not available on this date" }
+                    }
+                    
                 }
 
 
             }
             else {
-                return { status: 'failed', message: "Car is not available on this date" }
+                if(lan_id == 7){
+                    return { status: 'failed', message: "السيارة غير متوفرة في هذا التاريخ" }
+                }else{
+                    return { status: 'failed', message: "Car is not available on this date" }
+                }
+               
             }
 
             // var finalDaata = cars.filter((c) => {

@@ -996,8 +996,9 @@ router.post('/checkCarAvailability-v3', async (req, res) => {
         let car_id = req.body.car_id;
         let fromDate = req.body.fromDate;
         let days = req.body.days;
+        var lan_id=   req.body.lan_id;
         // const carResp = await carHelper.checkCarAvaibility(car_id, fromDate, days);
-        const carResp = await carHelper.checkCarAvaibility_v3(car_id, fromDate, days);
+        const carResp = await carHelper.checkCarAvaibility_v3(car_id, fromDate, days,lan_id);
         if (carResp.status === 'success') {
             res.status(config.OK_STATUS).json(carResp);
         }
