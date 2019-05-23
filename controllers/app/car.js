@@ -4202,11 +4202,17 @@ router.post('/return-request', async (req, res) => {
     if (!errors) {
 
         var booking_number = req.body.booking_number;
+        var lan_id = req.body.lan_id;
 
         const updateStatusResp = await CarBooking.updateOne({ 'booking_number': booking_number }, { $set: { 'trip_status': 'return' } });
         if (updateStatusResp && updateStatusResp.n > 0) {
             // send notification to all agent
-            res.status(config.OK_STATUS).json({ status: 'success', message: "Your request for return car has been placed successfully" });
+            if(lan_id == 7){
+                res.status(config.OK_STATUS).json({ status: 'success', message: "تم وضع طلبك لاسترجاع السيارة بنجاح" });
+            }else{
+                res.status(config.OK_STATUS).json({ status: 'success', message: "Your request for return car has been placed successfully" });
+            }
+            
 
 
             var bookData = await CarBooking.findOne({ "booking_number": req.body.booking_number }).lean().exec()

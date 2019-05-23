@@ -2631,7 +2631,7 @@ router.post('/delivering_v3', async (req, res) => {
                     var msgar = "سيارتك في الطريق. اضغط هنا لتتبع السيارة";
                     var status=1;
                     if (userData[0].deviceType === 'ios') {
-                        var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, parseInt(req.body.booking_number), notificationType, msg);
+                        var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, parseInt(req.body.booking_number), notificationType, msg,status,bookingID);
 
                         /* save notification to db start */
                         // if (deviceToken !== null) {
@@ -2642,7 +2642,7 @@ router.post('/delivering_v3', async (req, res) => {
                                 "notificationText": msg,
                                 "notificationTextArabic": msgar,
                                 "notificationType": 1,
-                                "booking_number": parseInt(req.body.booking_number)
+                                "booking_number":bookingID // parseInt(req.body.booking_number)
                             }
                             var saveNotiResp = await pushNotificationHelper.save_notification_to_db(data);
                         // }

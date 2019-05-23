@@ -190,10 +190,22 @@ push_notification_helper.sendToAndroidAgent = (device_token, car_booking_number,
 
 
 // Send push notification to user IOS APP when new car book
-push_notification_helper.sendToIOS = async (device_token, car_booking_number, notificationType, message = '', status = '') => {
+push_notification_helper.sendToIOS = async (device_token, car_booking_number, notificationType, message = '', status = '',bookingID='') => {
     try {
         var note = new apn.Notification();
+        
 
+       if(status==1){
+
+        note.alert = message;
+        note.payload = { "booking_number": bookingID, "status": status, "notification_type": notificationType };
+        note.topic = "com.Abhr";
+        let result = await apnProvider.send(note, device_token);
+
+        console.log('Send notification to IOS user =>', JSON.stringify(result));
+
+        return { status: 'success', message: 'Notification has been sent successfully', data: result }
+       }else{
         note.alert = message;
         note.payload = { "booking_number": car_booking_number, "status": status, "notification_type": notificationType };
         note.topic = "com.Abhr";
@@ -202,6 +214,9 @@ push_notification_helper.sendToIOS = async (device_token, car_booking_number, no
         console.log('Send notification to IOS user =>', JSON.stringify(result));
 
         return { status: 'success', message: 'Notification has been sent successfully', data: result }
+
+       }
+     
     } catch (err) {
         return { status: 'failed', "message": "Error occured while sending push notification to IOS device", err }
     }
