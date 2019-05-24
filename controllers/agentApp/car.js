@@ -1296,8 +1296,8 @@ router.post('/returning_v3', async (req, res) => {
                 var status=1;
                 console.log('Dev Token=>', deviceToken);
                 if (userDeviceToken[0].deviceType === 'ios') {
-                    var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, req.body.booking_number, notificationType, msg);
-
+                    var sendNotification = await pushNotificationHelper.sendToIOS(deviceToken, req.body.booking_number, notificationType, msg,status,bookingID);
+                  
                     /* save notification to db start */
                     // if (deviceToken !== null) {
                         var data = {
