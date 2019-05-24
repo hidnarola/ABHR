@@ -195,7 +195,7 @@ push_notification_helper.sendToIOS = async (device_token, car_booking_number, no
         var note = new apn.Notification();
         
 
-       if(status==1){
+       if(notificationType==1){
 
         note.alert = message;
         note.payload = { "booking_number": bookingID, "status": status, "notification_type": notificationType };
