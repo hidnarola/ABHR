@@ -1104,14 +1104,15 @@ router.get('/handover_detail/:cid/:id', (req, res, next) => {
 
 
 
-router.get('/agent_to_company/:cid/:aid', (req, res, next) => {
+router.get('/agent_to_company/:cid/:aid/:bid', (req, res, next) => {
 
     var carId = new ObjectId(req.params.cid);
     var agentId = new ObjectId(req.params.aid);
+    var bookingID = new ObjectId(req.params.bid);
   
-    // console.log(carId);
+    // console.log(carId);  booking_number
     // console.log(userId);
-    CarHandover.findOne({ agent_id: { $eq:agentId },car_id: { $eq:carId } }, function (err, data) {
+    CarHandover.findOne({ agent_id: { $eq:agentId },car_id: { $eq:carId },booking_number: { $eq:bookingID } }, function (err, data) {
         if (err) {
             return next(err);
         } else {
