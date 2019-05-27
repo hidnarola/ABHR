@@ -649,24 +649,13 @@ router.post('/report_list', async (req, res, next) => {
             }
             defaultQuery.push(searchQuery);
         }
-          // hardcoded code remove
+         // hardcoded code remove
           var nav=1;
           if(nav ==1){
            var navColname="from_time";
-            defaultQuery = defaultQuery.concat({
-                $project: {
-                    "records": "$$ROOT",
-                    "sort_index": { "$toLower": [navColname] }
-                }
-            },
-            {
-                $sort: {
-                    "sort_index": 1
-                }
-            },
-            {
-                $replaceRoot: { newRoot: "$records" }
-            })
+           defaultQuery = defaultQuery.concat({
+            $sort: { [navColname]: -1 }
+        });
 
           }
           // end
