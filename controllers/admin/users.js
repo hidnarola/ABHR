@@ -661,7 +661,7 @@ router.post('/report_list', async (req, res, next) => {
             },
             {
                 $sort: {
-                    "sort_index": -1
+                    "sort_index": 1
                 }
             },
             {
