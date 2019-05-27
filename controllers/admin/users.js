@@ -710,7 +710,7 @@ router.post('/report_list', async (req, res, next) => {
            // hardcoded code remove
           var nav=1;
           if(nav ==1){
-           var navColname="from_time";
+           var navColname="createdAt";
            defaultQuery = defaultQuery.concat({
             $sort: { [navColname]: -1 }
         });
