@@ -1299,6 +1299,10 @@ router.post('/addresses/update', async (req, res) => {
             address_data.longitude = req.body.longitude;
         }
 
+        if (req.body.complete_address) {
+            address_data.complete_address = req.body.complete_address;
+        }
+
         const addressResp = await userHelper.updateAddress(user_id, address_id, address_data);
 
         if (addressResp.status === 'success') {
