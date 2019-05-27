@@ -707,6 +707,16 @@ router.post('/report_list', async (req, res, next) => {
                 }
             }
         }
+           // hardcoded code remove
+          var nav=1;
+          if(nav ==1){
+           var navColname="from_time";
+           defaultQuery = defaultQuery.concat({
+            $sort: { [navColname]: -1 }
+        });
+
+          }
+          // end
         var totalrecords = await CarBooking.aggregate(defaultQuery);
         if (req.body.start) {
             defaultQuery.push({
@@ -918,16 +928,7 @@ router.post('/export_report_list', async (req, res, next) => {
                 }
             }
         }
-        // hardcoded code remove
-          var nav=1;
-          if(nav ==1){
-           var navColname="from_time";
-           defaultQuery = defaultQuery.concat({
-            $sort: { [navColname]: -1 }
-        });
-
-          }
-          // end
+     
         var totalrecords = await CarBooking.aggregate(defaultQuery);
         // console.log('defaultQuery===>', JSON.stringify(defaultQuery));
         CarBooking.aggregate(defaultQuery, function (err, data) {
