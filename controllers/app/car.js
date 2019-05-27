@@ -1890,6 +1890,7 @@ router.post('/cancel-booking-v2', async (req, res) => {
             "booking_number": req.body.booking_number,
             "cancel_date": req.body.cancel_date,
             "cancel_reason": req.body.cancel_reason ? req.body.cancel_reason : null,
+            "lan_id": req.body.lan_id,
             "trip_status": "cancelled"
         }
 

@@ -2075,14 +2075,30 @@ carHelper.cancelBooking = async function (data) {
         if (datta && datta.n > 0) {
 
             var update_carAssign = await CarAssign.updateOne(condition, update_data);
-            return { status: 'success', message: "Your car booking has been cancelled successfully" }
+            if(data.lan_id == 7){
+                return { status: 'success', message: "تم إلغاء حجز سيارتك بنجاح" }
+            }else{
+                return { status: 'success', message: "Your car booking has been cancelled successfully" }
+            }
+            
         }
         else {
-            return { status: 'failed', message: "Error occured while cancelling your car booking" }
+            if(data.lan_id == 7){
+                return { status: 'failed', message: "حدث خطأ أثناء إلغاء حجز سيارتك" }
+            }else{
+                return { status: 'failed', message: "Error occured while cancelling your car booking" }
+            }
+           
         }
     }
     catch (err) {
-        return { status: 'failed', message: "Error occured while cancelling your car booking" }
+
+        if(data.lan_id == 7){
+            return { status: 'failed', message: "حدث خطأ أثناء إلغاء حجز سيارتك" }
+        }else{
+            return { status: 'failed', message: "Error occured while cancelling your car booking" }
+        }
+       
     }
 }
 
