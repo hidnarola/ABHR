@@ -1166,7 +1166,7 @@ router.get('/agent_to_user/:cid/:userId/:agentId', (req, res, next) => {
   
     // console.log(carId);
     // console.log(userId);
-    CarHandover.findOne({ user_id: { $eq:userId },car_id: { $eq:carId },agent_id: { $eq:agentId } },{signature:-1}, function (err, data) {
+    CarHandover.findOne({ user_id: { $eq:userId },car_id: { $eq:carId },agent_id: { $eq:agentId } },{signature:0}, function (err, data) {
         if (err) {
             return next(err);
         } else {
