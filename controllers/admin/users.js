@@ -649,6 +649,28 @@ router.post('/report_list', async (req, res, next) => {
             }
             defaultQuery.push(searchQuery);
         }
+          // hardcoded code remove
+          var nav=1;
+          if(nav ==1){
+           var navColname="from_time";
+            defaultQuery = defaultQuery.concat({
+                $project: {
+                    "records": "$$ROOT",
+                    "sort_index": { "$toLower": [navColname] }
+                }
+            },
+            {
+                $sort: {
+                    "sort_index": -1
+                }
+            },
+            {
+                $replaceRoot: { newRoot: "$records" }
+            })
+
+          }
+          // end
+
         if (typeof req.body.order !== 'undefined' && req.body.order.length > 0) {
             var colIndex = req.body.order[0].column;
             var colname = req.body.columns[colIndex].name;
