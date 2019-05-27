@@ -1059,6 +1059,8 @@ router.post('/add-address', async (req, res) => {
             'landmark': req.body.landmark ? req.body.landmark : null,
             'latitude': req.body.latitude ? req.body.latitude : null,
             'longitude': req.body.longitude ? req.body.longitude : null,
+            'complete_address': req.body.complete_address ? req.body.complete_address : null,
+            
         }
         const addressResp = await userHelper.addAddress(user_id, address_data);
         if (addressResp.status === 'success') {

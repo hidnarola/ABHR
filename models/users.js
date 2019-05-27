@@ -40,6 +40,7 @@ var UserSchema = new Schema({
         state :{type: String, default: null},
         city :{type: String, default: null},
         street :{type: String, default : null},
+        complete_address :{type: String, default : null},
         building :{type: String, default : null},
         landmark :{type: String, default : null},
         latitude: {type: Number, default: null},
