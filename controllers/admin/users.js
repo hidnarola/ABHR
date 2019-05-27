@@ -654,7 +654,7 @@ router.post('/report_list', async (req, res, next) => {
           if(nav ==1){
            var navColname="from_time";
            defaultQuery = defaultQuery.concat({
-            $sort: { [navColname]: -1 }
+            $sort: { [navColname]: 1 }
         });
 
           }
