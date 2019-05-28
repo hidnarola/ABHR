@@ -4314,7 +4314,7 @@ router.post('/booking-details-ios', async (req, res) => {
 
         var phone_no = await Users.findOne({ type: 'admin', isDeleted: false }, { _id: 0, support_phone_number: 1 }).lean().exec();
         var support_phone_number = phone_no != null ? phone_no.support_phone_number : '9876543210';
-    
+        var lan_id=req.body.lan_id;
         var term='';
          if(lan_id==7){
              term="$car_company_terms_and_condition_Details.terms_and_conditions";
