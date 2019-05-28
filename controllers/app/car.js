@@ -4317,9 +4317,10 @@ router.post('/booking-details-ios', async (req, res) => {
         var lan_id=req.body.lan_id;
         var term='';
          if(lan_id==7){
-             term="$car_company_terms_and_condition_Details.terms_and_conditions";
-         }else{
             term="$car_company_terms_and_condition_Details.terms_and_conditions_arabic";
+            
+         }else{
+            term="$car_company_terms_and_condition_Details.terms_and_conditions";
          }
         var defaultQuery = [
             {
