@@ -4314,7 +4314,13 @@ router.post('/booking-details-ios', async (req, res) => {
 
         var phone_no = await Users.findOne({ type: 'admin', isDeleted: false }, { _id: 0, support_phone_number: 1 }).lean().exec();
         var support_phone_number = phone_no != null ? phone_no.support_phone_number : '9876543210';
-
+    
+        var term='';
+         if(lan_id==7){
+             term="$car_company_terms_and_condition_Details.terms_and_conditions";
+         }else{
+            term="$car_company_terms_and_condition_Details.terms_and_conditions_arabic";
+         }
         var defaultQuery = [
             {
                 $match: {
@@ -4397,7 +4403,7 @@ router.post('/booking-details-ios', async (req, res) => {
                     "car_details.car_model": "$model_details.model_name",
                     "car_details.car_model_number": "$model_details.model_number",
                     "car_details.car_model_release_year": "$model_details.release_year",
-                    "car_details.terms_and_conditions": "$car_company_terms_and_condition_Details.terms_and_conditions",
+                    "car_details.terms_and_conditions": term,
                     "car_details.cancellation_policy": "$car_company_terms_and_condition_Details.cancellation_policy_criteria",
                     // "phone_number": "$companyDetails.phone_number"
                     "phone_number": support_phone_number
