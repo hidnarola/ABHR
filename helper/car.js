@@ -2956,7 +2956,7 @@ carHelper.resend_invoice = async (booking_number, email) => {
 
 
             invoiceData.data['support_phone_number'] = superAdminData && superAdminData.length > 0 ? '+' + superAdminData[0].support_country_code + ' ' + superAdminData[0].support_phone_number : '';
-            invoiceData.data['support_email'] = superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '';
+            invoiceData.data['support_email'] = email;//superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '';
             invoiceData.data['carImagePath'] = config.CAR_IMAGES;
             invoiceData.data['icons'] = config.ICONS;
 

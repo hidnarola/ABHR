@@ -146,7 +146,7 @@ router.post('/registration', async (req, res, next) => {
                             first_name: userData.first_name,
                             last_name: userData.last_name,
                             support_phone_number: superAdminData && superAdminData.length > 0 ? '+' + superAdminData[0].support_country_code + ' ' + superAdminData[0].support_phone_number : '',
-                            support_email: superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
+                            support_email:userData.email,//superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
                             carImagePath: config.CAR_IMAGES,
                             icons: config.ICONS
                         }
@@ -663,7 +663,7 @@ router.post('/forget_password', async (req, res, next) => {
                             link: config.FRONT_END_URL + 'reset-password?detials=' + buffer, 
                             name: user.first_name,
                             support_phone_number: superAdminData && superAdminData.length > 0 ? '+' + superAdminData[0].support_country_code + ' ' + superAdminData[0].support_phone_number : '',
-                            support_email: superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
+                            support_email: user.email, //superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
                             carImagePath: config.CAR_IMAGES,
                             icons: config.ICONS
                     };

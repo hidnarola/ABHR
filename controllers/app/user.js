@@ -591,7 +591,7 @@ router.post('/sendEmail', async (req, res) => {
         var data = {
             otp: Math.floor(100000 + Math.random() * 900000),
             support_phone_number : superAdminData && superAdminData.length > 0 ? '+' + superAdminData[0].support_country_code + ' ' + superAdminData[0].support_phone_number : '',
-            support_email : superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
+            support_email : req.body.email,//superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
             carImagePath : config.CAR_IMAGES,
             icons : config.ICONS
         }
