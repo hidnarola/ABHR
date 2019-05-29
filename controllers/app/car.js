@@ -1442,7 +1442,7 @@ if (carData && carData.length > 0) {
         data1.toDate = moment(data1.to_time).format("MMM-DD-YYYY");
 
         data1.support_phone_number = superAdminData && superAdminData.length > 0 ? '+' + superAdminData[0].support_country_code + ' ' + superAdminData[0].support_phone_number : '';
-        data1.support_email = superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '';
+        data1.support_email =userDeviceToken[0].email; //superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '';
         data1.carImagePath = config.CAR_IMAGES;
         data1.icons = config.ICONS;
 
