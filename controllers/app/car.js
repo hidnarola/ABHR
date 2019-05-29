@@ -1456,12 +1456,14 @@ if (carData && carData.length > 0) {
 
         var data2 = data1;
         data2.user_name = companyData[0].name;
+        data2.support_email = companyData[0].email;
         let mail_resp2 = await mail_helper.sendEmail_carBook("car_booking", options_company_admin, data2);
         console.log("Mail sending response 2", mail_resp2);
 
         if (superAdminData && superAdminData.length > 0) {
             var data3 = data1;
             data3.user_name = superAdminData[0].first_name;
+            data3.support_email = superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '';
             let mail_resp3 = await mail_helper.sendEmail_carBook("car_booking", options_super_admin, data3);
             console.log("Mail sending response 3", mail_resp3);
         }
