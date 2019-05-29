@@ -2017,14 +2017,14 @@ router.post('/cancel-booking-v2', async (req, res) => {
                 booking_number: req.body.booking_number,
                 user_name: userDeviceToken[0].first_name,
                 support_phone_number: superAdminData && superAdminData.length > 0 ? '+' + superAdminData[0].support_country_code + ' ' + superAdminData[0].support_phone_number : '',
-                support_email: superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
+                support_email: userDeviceToken[0].email, //superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
                 icons: config.ICONS
             }
             var data2 = {
                 booking_number: req.body.booking_number,
                 user_name: companyData[0].name,
                 support_phone_number: superAdminData && superAdminData.length > 0 ? '+' + superAdminData[0].support_country_code + ' ' + superAdminData[0].support_phone_number : '',
-                support_email: superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
+                support_email:companyData[0].email,//superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
                 icons: config.ICONS
             }
 
@@ -2036,7 +2036,11 @@ router.post('/cancel-booking-v2', async (req, res) => {
             let mail_resp2 = await mail_helper.sendEmail_carBook("car_booking_cancel", options_company_admin, data2);
             console.log('Mail sending response 2 =>', mail_resp2);
             if (superAdminData && superAdminData.length > 0) {
-                var data3 = { booking_number: req.body.booking_number, user_name: superAdminData[0].first_name }
+                var data3 = {
+                     booking_number: req.body.booking_number,
+                     support_email:superAdminData && superAdminData.length > 0 ? superAdminData[0].support_email : '',
+                     user_name: superAdminData[0].first_name 
+                    }
                 let mail_resp3 = await mail_helper.sendEmail_carBook("car_booking_cancel", options_super_admin, data3);
                 console.log('Mail sending response 3 =>', mail_resp3);
             }
