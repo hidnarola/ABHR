@@ -1069,7 +1069,7 @@ router.get('/user_detail/:id', (req, res, next) => {
 
 });
 
-
+/*
 router.get('/handover_detail/:cid/:id', (req, res, next) => {
 
 
@@ -1095,6 +1095,56 @@ router.get('/handover_detail/:cid/:id', (req, res, next) => {
                     });
                 }
             });
+         
+        }
+    });
+
+    
+});*/
+
+
+router.get('/handover_detail/:cid/:id/:bn', (req, res, next) => {
+
+
+    var carId = new ObjectId(req.params.cid);
+    var userId = new ObjectId(req.params.id);
+    var booking_number = req.params.bn;//new ObjectId(req.params.bn);
+   /* console.log(carId);
+     console.log(userId);
+	  console.log(booking_number);*/
+    CarHandover.findOne({ user_id: { $eq:userId },car_id: { $eq:carId },booking_number: { $eq:booking_number } }, function (err, data) {
+        if (err) {
+            return next(err);
+        } else {
+			
+			if(data != ''&&  data !== null){				
+				
+				 var agentId = new ObjectId(data.agent_id);
+            //console.log(agentId);
+            User.findOne({ _id: { $eq:agentId }},{deviceType:0,password:0}, function (err, agentData) {
+                if (err) {
+                    return next(err);
+                } else {
+                    res.status(config.OK_STATUS).json({
+                        message: "Success",
+                        handoverData: data,
+                        agentData: agentData,
+                    });
+                }
+            });
+				
+			}else{
+				  res.status(config.BAD_REQUEST).json({
+            status: "failed",
+            message: "No data found"
+           
+        });
+				
+			}
+
+           
+			
+
          
         }
     });
