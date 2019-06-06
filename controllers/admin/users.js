@@ -1108,7 +1108,7 @@ router.get('/agent_to_company/:cid/:aid/:bid', (req, res, next) => {
 
     var carId = new ObjectId(req.params.cid);
     var agentId = new ObjectId(req.params.aid);
-    var bookingID = new ObjectId(req.params.bid);
+    var bookingID = req.params.bid;//new ObjectId(req.params.bid);
   
     // console.log(carId);  booking_number
     // console.log(userId);
