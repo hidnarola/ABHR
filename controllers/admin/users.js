@@ -4,6 +4,7 @@ var config = require('./../../config');
 var User = require('./../../models/users');
 var CarBooking = require('./../../models/car_booking');
 var CarHandover = require('./../../models/car_hand_over');
+var CarReceive = require('./../../models/car_receive');
 var path = require('path');
 var async = require("async");
 var ObjectId = require('mongoose').Types.ObjectId;
@@ -1134,8 +1135,9 @@ router.get('/handover_detail/:cid/:id/:bn', (req, res, next) => {
             });
 				
 			}else{
-				  res.status(config.BAD_REQUEST).json({
+				  res.status(config.OK_STATUS).json({
             status: "failed",
+            error:"No data found",
             message: "No data found"
            
         });
@@ -1162,7 +1164,7 @@ router.get('/agent_to_company/:cid/:aid/:bid', (req, res, next) => {
   
     // console.log(carId);  booking_number
     // console.log(userId);
-    CarHandover.findOne({ agent_id: { $eq:agentId },car_id: { $eq:carId },booking_number: { $eq:bookingID } }, function (err, data) {
+    CarReceive.findOne({ agent_id: { $eq:agentId },car_id: { $eq:carId },booking_number: { $eq:bookingID } }, function (err, data) {
         if (err) {
             return next(err);
         } else {
@@ -1208,15 +1210,16 @@ router.get('/company_to_agent/:cid/:companyid', (req, res, next) => {
 });
 
 
-router.get('/agent_to_user/:cid/:userId/:agentId', (req, res, next) => {
+router.get('/agent_to_user/:cid/:userId/:agentId/:bId', (req, res, next) => {
 
     var carId = new ObjectId(req.params.cid);
     var userId = new ObjectId(req.params.userId);
     var agentId = new ObjectId(req.params.agentId);
+    var booking_number = req.params.bId;
   
     // console.log(carId);
     // console.log(userId);
-    CarHandover.findOne({ user_id: { $eq:userId },car_id: { $eq:carId },agent_id: { $eq:agentId } },{signature:0}, function (err, data) {
+    CarHandover.findOne({ user_id: { $eq:userId },car_id: { $eq:carId },agent_id: { $eq:agentId } ,booking_number: { $eq:booking_number }}, function (err, data) {
         if (err) {
             return next(err);
         } else {
